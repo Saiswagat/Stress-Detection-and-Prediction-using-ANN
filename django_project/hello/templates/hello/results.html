@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Level Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #149014; /* Light Green color */
+            padding: 15px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            color: white;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #0ea015; /* Darker shade of green for hover effect */
+            border-radius: 4px;
+        }
+
+        .navbar .nav-left, .navbar .nav-right {
+            display: flex;
+        }
+
+        /* Main content styling */
+        .result-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .result-container h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .result-container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .result-container .stress {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stress.stressed {
+            color: #ff6f61;
+        }
+
+        .stress.not-stressed {
+            color: #4CAF50;
+        }
+
+        .stress img {
+            width: 50px;
+            margin-top: 20px;
+        }
+
+        .input-data {
+            text-align: left;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+        .input-data span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html" id="homeButton">Home</a> 
+            <a href="about_us.html">About Us</a>
+            <a href="history.html">Stress Prediction History</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="profile.html">Profile</a>
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+
+    <!-- Result Content -->
+    <div class="result-container">
+        <h2>Stress Level Prediction</h2>
+        <p class="stress" id="stressLevel"></p>
+        <img id="stressIcon" src="" alt="Stress icon">
+        
+        <!-- Display the input data -->
+        <div class="input-data">
+            <p><span>Snoring Rate:</span> <span id="snoringRateDisplay">N/A</span></p>
+            <p><span>Respiratory Rate:</span> <span id="respiratoryRateDisplay">N/A</span></p>
+            <p><span>Body Temperature:</span> <span id="bodyTempDisplay">N/A</span></p>
+            <p><span>Limb Movement:</span> <span id="limbMovementDisplay">N/A</span></p>
+            <p><span>Blood Oxygen:</span> <span id="bloodOxygenDisplay">N/A</span></p>
+            <p><span>Eye Movement:</span> <span id="eyeMovementDisplay">N/A</span></p>
+            <p><span>Sleep Hours:</span> <span id="sleepHoursDisplay">N/A</span></p>
+            <p><span>Heart Rate:</span> <span id="heartRateDisplay">N/A</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Get the URL parameter for stress level
+        const urlParams = new URLSearchParams(window.location.search);
+        const stressLevel = urlParams.get('stress');
+
+        // Get the entered data from localStorage
+        const predictionData = JSON.parse(localStorage.getItem('latestPrediction')) || {};
+
+        // Set the stress level text and icon
+        document.getElementById('stressLevel').textContent = stressLevel;
+        const stressIcon = document.getElementById('stressIcon');
+
+        if (stressLevel === 'Stressed') {
+            document.getElementById('stressLevel').classList.add('stressed');
+            stressIcon.src = 'https://img.icons8.com/ios-filled/50/ff6f61/filled-circle.png';
+        } else {
+            document.getElementById('stressLevel').classList.add('not-stressed');
+            stressIcon.src = 'https://img.icons8.com/ios-filled/50/4CAF50/filled-circle.png';
+        }
+
+        // Display entered data
+        document.getElementById('snoringRateDisplay').textContent = predictionData.snoringRate || 'N/A';
+        document.getElementById('respiratoryRateDisplay').textContent = predictionData.respiratoryRate || 'N/A';
+        document.getElementById('bodyTempDisplay').textContent = predictionData.bodyTemp || 'N/A';
+        document.getElementById('limbMovementDisplay').textContent = predictionData.limbMovement || 'N/A';
+        document.getElementById('bloodOxygenDisplay').textContent = predictionData.bloodOxygen || 'N/A';
+        document.getElementById('eyeMovementDisplay').textContent = predictionData.eyeMovement || 'N/A';
+        document.getElementById('sleepHoursDisplay').textContent = predictionData.sleepHours || 'N/A';
+        document.getElementById('heartRateDisplay').textContent = predictionData.heartRate || 'N/A';
+    </script>
+
+</body>
+</html>

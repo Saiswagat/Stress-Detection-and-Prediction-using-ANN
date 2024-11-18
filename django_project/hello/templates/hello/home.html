@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stress Detection System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome Link -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling with Background Image */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            background-image: url('YOUR_IMAGE_URL_HERE'); /* Change this URL to your desired image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll when sidebar is toggled */
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        /* Title Styling */
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: skyblue; /* Sky blue color */
+            margin-bottom: 10px; /* Reduced space between title and login container */
+            margin-top: -50px; /* Moves the title up */
+            text-align: center;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 0;
+            height: 100vh;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            transition: 0.5s;
+            z-index: 100;
+            padding-top: 60px; /* Adjusted padding to move menu items lower */
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #4CAF50;
+        }
+
+        /* Sidebar Toggle Button */
+        .sidebar-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            color: #333;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 20px;
+            text-align: right;
+        }
+
+        .nav-button {
+            margin-left: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Login Container Styling */
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        /* Form Styling */
+        .login-form h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input Group Styling */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #4CAF50;
+        }
+
+        /* Login Button Styling */
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Social Media Icons Styling */
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Modal Box Styling */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding-top: 100px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .modal-content button:hover {
+            background-color: #45a049;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <div class="title">Stress Detection and Prediction System</div>
+
+    <!-- Sidebar Toggle Button -->
+    <span class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</span>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Our Services</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="signout.html">Sign Out</a>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="home.html" class="nav-button">Home</a>
+        <a href="signup.html" class="nav-button">Sign Up</a>
+    </div>
+
+    <!-- Login Form Container -->
+    <div class="login-container">
+        <form action="/login" method="POST" class="login-form">
+            <h2>Login</h2>
+            
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="login-button" onclick="loginUser(event)">Login</button>
+        </form>
+
+        <!-- Social Media Login Icons -->
+        <div class="social-icons">
+            <a href="#" id="google" onclick="openModal('Google')"><i class="fab fa-google"></i></a>
+            <a href="#" id="facebook" onclick="openModal('Facebook')"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" id="twitter" onclick="openModal('Twitter')"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+
+    <!-- Modal Box for Google, Facebook, Twitter Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Login with</h3>
+            <input type="text" id="socialId" placeholder="Enter your email/username" required>
+            <button onclick="loginSocial()">Login</button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            if (sidebar.style.width === "250px") {
+                sidebar.style.width = "0";
+            } else {
+                sidebar.style.width = "250px";
+            }
+        }
+
+        // Open Modal
+        function openModal(platform) {
+            document.getElementById("loginModal").style.display = "flex";
+            document.getElementById("modalTitle").textContent = "Login with " + platform;
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById("loginModal").style.display = "none";
+        }
+
+        // Handle Social Login
+        function loginSocial() {
+            var socialId = document.getElementById("socialId").value;
+            if (socialId) {
+                alert("Logged in with " + socialId);
+                closeModal();
+                window.location.href = "stress_input.html"; // Redirect to the stress input page
+            } else {
+                alert("Please enter your email/username.");
+            }
+        }
+
+        // Handle Standard Login
+        function loginUser(event) {
+            event.preventDefault();
+            window.location.href = "stress_input.html"; // Redirect to the stress input page after login
+        }
+    </script>
+</body>
+</html>

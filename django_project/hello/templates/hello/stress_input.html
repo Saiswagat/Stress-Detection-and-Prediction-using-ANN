@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Level Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #149014; /* Light Green color */
+            padding: 15px 20px; /* Adjusted padding to ensure better alignment */
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0; /* Ensures the navbar starts from the left edge */
+            right: 0; /* Ensures the navbar stretches fully across */
+            color: white;
+            flex-wrap: wrap;
+            box-sizing: border-box; /* Ensures padding does not affect the width */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #0ea015; /* Darker shade of green for hover effect */
+            border-radius: 4px;
+        }
+
+        .navbar .nav-left, .navbar .nav-right {
+            display: flex;
+        }
+
+        /* Main content styling */
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .form-container h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .form-container input {
+            font-size: 16px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            padding: 12px 25px;
+            background-color: #149014;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0ea015;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html" id="homeButton">Home</a> 
+            <a href="about_us.html">About Us</a>
+            <a href="history.html">Stress Prediction History</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="profile.html">Profile</a>
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Form Content -->
+    <div class="form-container">
+        <h2>Enter Your Stress Prediction Data</h2>
+        <form id="stressForm">
+            <input type="number" id="snoringRate" placeholder="Snoring Rate" required><br>
+            <input type="number" id="respiratoryRate" placeholder="Respiratory Rate" required><br>
+            <input type="number" id="bodyTemp" placeholder="Body Temperature (°C)" required><br>
+            <input type="number" id="limbMovement" placeholder="Limb Movement" required><br>
+            <input type="number" id="bloodOxygen" placeholder="Blood Oxygen" required><br>
+            <input type="number" id="eyeMovement" placeholder="Eye Movement" required><br>
+            <input type="number" id="sleepHours" placeholder="Sleep Hours" required><br>
+            <input type="number" id="heartRate" placeholder="Heart Rate" required><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('stressForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Collect form values
+            const snoringRate = parseFloat(document.getElementById('snoringRate').value);
+            const respiratoryRate = parseFloat(document.getElementById('respiratoryRate').value);
+            const bodyTemp = parseFloat(document.getElementById('bodyTemp').value);
+            const limbMovement = parseFloat(document.getElementById('limbMovement').value);
+            const bloodOxygen = parseFloat(document.getElementById('bloodOxygen').value);
+            const eyeMovement = parseFloat(document.getElementById('eyeMovement').value);
+            const sleepHours = parseFloat(document.getElementById('sleepHours').value);
+            const heartRate = parseFloat(document.getElementById('heartRate').value);
+
+            // Save the entered data into localStorage
+            const predictionData = {
+                snoringRate,
+                respiratoryRate,
+                bodyTemp,
+                limbMovement,
+                bloodOxygen,
+                eyeMovement,
+                sleepHours,
+                heartRate
+            };
+            localStorage.setItem('latestPrediction', JSON.stringify(predictionData));
+
+            // Logic to determine stress based on the values
+            let stressLevel = "Not Stressed";
+            if (snoringRate > 5 || respiratoryRate > 20 || bodyTemp > 37.5 || limbMovement > 5 || heartRate > 90) {
+                stressLevel = "Stressed";
+            }
+
+            // Save prediction history to localStorage
+            const prediction = {
+                date: new Date().toLocaleDateString(),
+                snoringRate, respiratoryRate, bodyTemp, limbMovement,
+                bloodOxygen, eyeMovement, sleepHours, heartRate, stressLevel
+            };
+
+            let history = JSON.parse(localStorage.getItem('predictionHistory')) || [];
+            history.push(prediction);
+            localStorage.setItem('predictionHistory', JSON.stringify(history));
+
+            // Redirect to results page with stress level
+            window.location.href = `results.html?stress=${stressLevel}`;
+        });
+    </script>
+
+</body>
+</html>

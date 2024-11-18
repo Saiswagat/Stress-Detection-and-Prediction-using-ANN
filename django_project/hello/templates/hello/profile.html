@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f5f7;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            padding: 10px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar ul li {
+            margin-right: 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            display: inline-block;
+        }
+        .navbar ul li a:hover {
+            background-color: #3e8e41;
+            border-radius: 4px;
+        }
+        .navbar .right {
+            margin-left: auto;
+        }
+
+        /* Move Profile slightly to the right */
+        .navbar .profile {
+            margin-left: 10px; /* Adjust this value to move the Profile button right */
+        }
+
+        /* Profile container */
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .profile-container h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Profile Fields */
+        .profile-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .profile-field {
+            margin: 10px 0;
+        }
+
+        .profile-field label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .profile-field p {
+            color: #666;
+        }
+
+        /* Editable form field */
+        .profile-field input, .profile-field select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Buttons */
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+
+        .button-container .edit-button {
+            margin-right: 10px;
+        }
+
+        .image-upload-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Contact</a></li>
+            <!-- Moved Profile button slightly right next to the Logout option -->
+            <li class="right"><a href="#">Logout</a></li>
+            <li class="right profile"><a href="#">Profile</a></li>
+        </ul>
+    </nav>
+
+    <!-- Profile Card -->
+    <div class="profile-container">
+        <h2>User Profile</h2>
+
+        <!-- Profile Picture -->
+        <img id="profile-picture" src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-picture">
+
+        <!-- Profile Fields -->
+        <div id="profile-fields" class="profile-fields">
+            <div class="profile-field">
+                <label>Name:</label>
+                <p id="display-name">Swagat Kumar Behera</p>
+            </div>
+            <div class="profile-field">
+                <label>Age:</label>
+                <p id="display-age">21</p>
+            </div>
+            <div class="profile-field">
+                <label>Gender:</label>
+                <p id="display-gender">Male</p>
+            </div>
+            <div class="profile-field">
+                <label>Email:</label>
+                <p id="display-email">saiswagat123@gmail.com</p>
+            </div>
+            <div class="profile-field">
+                <label>Phone:</label>
+                <p id="display-phone">06371068945</p>
+            </div>
+            <div class="profile-field">
+                <label>Exercise Frequency:</label>
+                <p id="display-exercise">Occasionally</p>
+            </div>
+            <div class="profile-field">
+                <label>Job-related Stress:</label>
+                <p id="display-job-stress">Low</p>
+            </div>
+            <div class="profile-field">
+                <label>Family-related Stress:</label>
+                <p id="display-family-stress">High</p>
+            </div>
+            <div class="profile-field">
+                <label>Social Life Stress:</label>
+                <p id="display-social-stress">Low</p>
+            </div>
+        </div>
+
+        <!-- Editable Form (hidden by default) -->
+        <div id="edit-form" style="display: none;">
+            <div class="profile-field">
+                <label>Name:</label>
+                <input type="text" id="input-name" value="Swagat Kumar Behera">
+            </div>
+            <div class="profile-field">
+                <label>Age:</label>
+                <input type="number" id="input-age" value="21">
+            </div>
+            <div class="profile-field">
+                <label>Gender:</label>
+                <select id="input-gender">
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="profile-field">
+                <label>Email:</label>
+                <input type="email" id="input-email" value="saiswagat123@gmail.com">
+            </div>
+            <div class="profile-field">
+                <label>Phone:</label>
+                <input type="text" id="input-phone" value="06371068945">
+            </div>
+            <div class="profile-field">
+                <label>Exercise Frequency:</label>
+                <select id="input-exercise">
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Occasionally" selected>Occasionally</option>
+                    <option value="Never">Never</option>
+                </select>
+            </div>
+            <div class="profile-field">
+                <label>Job-related Stress:</label>
+                <select id="input-job-stress">
+                    <option value="Low" selected>Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="profile-field">
+                <label>Family-related Stress:</label>
+                <select id="input-family-stress">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High" selected>High</option>
+                </select>
+            </div>
+            <div class="profile-field">
+                <label>Social Life Stress:</label>
+                <select id="input-social-stress">
+                    <option value="Low" selected>Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <!-- Image Upload Field -->
+            <div class="profile-field image-upload-container">
+                <label for="profile-picture-upload">Upload Profile Picture:</label>
+                <input type="file" id="profile-picture-upload" onchange="previewImage(event)">
+            </div>
+        </div>
+
+        <!-- Button container -->
+        <div class="button-container">
+            <button class="edit-button" onclick="toggleEdit()">Edit</button>
+            <button id="save-button" onclick="saveProfile()" style="display: none;">Save</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleEdit() {
+            const profileFields = document.getElementById("profile-fields");
+            const editForm = document.getElementById("edit-form");
+            const saveButton = document.getElementById("save-button");
+            const imageUploadContainer = document.querySelector(".image-upload-container");
+            const editButton = document.querySelector(".edit-button");
+
+            if (editForm.style.display === "none") {
+                editForm.style.display = "block";
+                profileFields.style.display = "none";
+                imageUploadContainer.style.display = "block";
+                editButton.style.display = "none";
+                saveButton.style.display = "inline-block";
+            } else {
+                editForm.style.display = "none";
+                profileFields.style.display = "grid";
+                imageUploadContainer.style.display = "none";
+                editButton.style.display = "inline-block";
+                saveButton.style.display = "none";
+            }
+        }
+
+        function saveProfile() {
+            const name = document.getElementById("input-name").value;
+            const age = document.getElementById("input-age").value;
+            const gender = document.getElementById("input-gender").value;
+            const email = document.getElementById("input-email").value;
+            const phone = document.getElementById("input-phone").value;
+            const exercise = document.getElementById("input-exercise").value;
+            const jobStress = document.getElementById("input-job-stress").value;
+            const familyStress = document.getElementById("input-family-stress").value;
+            const socialStress = document.getElementById("input-social-stress").value;
+
+            document.getElementById("display-name").textContent = name;
+            document.getElementById("display-age").textContent = age;
+            document.getElementById("display-gender").textContent = gender;
+            document.getElementById("display-email").textContent = email;
+            document.getElementById("display-phone").textContent = phone;
+            document.getElementById("display-exercise").textContent = exercise;
+            document.getElementById("display-job-stress").textContent = jobStress;
+            document.getElementById("display-family-stress").textContent = familyStress;
+            document.getElementById("display-social-stress").textContent = socialStress;
+
+            toggleEdit();
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("profile-picture").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

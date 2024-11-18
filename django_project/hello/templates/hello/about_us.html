@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 15px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            border-radius: 4px;
+        }
+
+        .navbar .nav-left, .navbar .nav-right {
+            display: flex;
+        }
+
+        /* Main content styling */
+        .about-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 80px; /* To avoid overlapping with fixed navbar */
+            text-align: center;
+        }
+
+        .about-container h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .about-container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #ff6f61;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .benefits {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html">Home</a>
+            <a href="about_us.html">About Us</a>
+            <a href="history.html">Stress Prediction History</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="profile.html">Profile</a>
+            <a href="logout.html">Logout</a>
+        </div>
+    </div>
+
+    <!-- About Us Content -->
+    <div class="about-container">
+        <h2>About Us</h2>
+
+        <p>We created this Stress Level Prediction System to help individuals understand and manage their stress levels more effectively.</p>
+
+        <p class="highlight">Reason for creating this system:</p>
+        <p>This system is designed to assist individuals by providing quick insights into their stress levels, based on key health parameters. It aims to help users take timely actions towards stress management.</p>
+
+        <p class="benefits">Benefits of this system:</p>
+        <ul style="list-style-type: none; padding: 0;">
+            <li>Provides accurate predictions based on real-time data.</li>
+            <li>Helps users track and manage stress levels over time.</li>
+            <li>Enables individuals to take proactive steps toward a healthier lifestyle.</li>
+            <li>Offers a reliable way to monitor emotional and physical well-being.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

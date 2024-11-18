@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History - Stress Detection System</title>
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #45a049;
+        }
+
+        .navbar .nav-options {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* History Page Styles */
+        .history-container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content at the top */
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+
+        .history-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .history-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        /* Make the content scrollable if there are a lot of entries */
+        .history-box table {
+            overflow-y: auto;
+            max-height: 400px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <div class="nav-options">
+            <a href="results.html">Prediction Result</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+
+    <!-- History Section -->
+    <div class="history-container">
+        <div class="history-box">
+            <h2>Prediction History</h2>
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Stress Level</th>
+                        <th>Snoring Rate</th>
+                        <th>Respiratory Rate</th>
+                        <th>Body Temperature</th>
+                        <th>Limb Movement</th>
+                        <th>Blood Oxygen</th>
+                        <th>Eye Movement</th>
+                        <th>Sleep Hours</th>
+                        <th>Heart Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic Table Rows will go here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const history = JSON.parse(localStorage.getItem('predictionHistory')) || [];
+            const historyTable = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+
+            history.forEach(record => {
+                let row = historyTable.insertRow();
+                row.innerHTML = `
+                    <td>${record.date}</td>
+                    <td>${record.stressLevel}</td>
+                    <td>${record.snoringRate}</td>
+                    <td>${record.respiratoryRate}</td>
+                    <td>${record.bodyTemp}</td>
+                    <td>${record.limbMovement}</td>
+                    <td>${record.bloodOxygen}</td>
+                    <td>${record.eyeMovement}</td>
+                    <td>${record.sleepHours}</td>
+                    <td>${record.heartRate}</td>
+                `;
+            });
+        };
+    </script>
+
+</body>
+</html>
