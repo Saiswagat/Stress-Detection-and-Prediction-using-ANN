@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Stress Detection System</title>
+    <title>Sign Up - Stress Detection System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome Link -->
     <style>
-        /* General Reset */
+        /* All styles remain consistent with the home page */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body Styling with Background Image */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
-            background-image: url('YOUR_IMAGE_URL_HERE'); /* Change this URL to your desired image */
+            background-image: url('YOUR_IMAGE_URL_HERE'); /* Use the same background image */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -25,21 +24,19 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll when sidebar is toggled */
-            flex-direction: column; /* Stack elements vertically */
+            overflow-x: hidden;
+            flex-direction: column;
         }
 
-        /* Title Styling */
         .title {
             font-size: 36px;
             font-weight: bold;
-            color: skyblue; /* Sky blue color */
-            margin-bottom: 10px; /* Reduced space between title and login container */
-            margin-top: -50px; /* Moves the title up */
+            color: skyblue;
+            margin-bottom: 10px;
+            margin-top: -50px;
             text-align: center;
         }
 
-        /* Sidebar Styling */
         .sidebar {
             width: 0;
             height: 100vh;
@@ -50,7 +47,7 @@
             overflow-x: hidden;
             transition: 0.5s;
             z-index: 100;
-            padding-top: 60px; /* Adjusted padding to move menu items lower */
+            padding-top: 60px;
         }
 
         .sidebar a {
@@ -66,7 +63,6 @@
             background-color: #4CAF50;
         }
 
-        /* Sidebar Toggle Button */
         .sidebar-toggle {
             position: absolute;
             top: 20px;
@@ -77,7 +73,6 @@
             z-index: 101;
         }
 
-        /* Navbar Styling */
         .navbar {
             position: absolute;
             top: 20px;
@@ -101,8 +96,7 @@
             background-color: #45a049;
         }
 
-        /* Login Container Styling */
-        .login-container {
+        .signup-container {
             background-color: white;
             padding: 40px;
             border-radius: 8px;
@@ -110,18 +104,14 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            margin-left: 0;
-            margin-right: 0;
         }
 
-        /* Form Styling */
-        .login-form h2 {
+        .signup-form h2 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
 
-        /* Input Group Styling */
         .input-group {
             margin-bottom: 20px;
             text-align: left;
@@ -147,8 +137,7 @@
             border-color: #4CAF50;
         }
 
-        /* Login Button Styling */
-        .login-button {
+        .signup-button {
             width: 100%;
             padding: 12px;
             background-color: #4CAF50;
@@ -160,11 +149,10 @@
             transition: background-color 0.3s;
         }
 
-        .login-button:hover {
+        .signup-button:hover {
             background-color: #45a049;
         }
 
-        /* Social Media Icons Styling */
         .social-icons {
             margin-top: 20px;
             display: flex;
@@ -192,7 +180,7 @@
 </head>
 <body>
     <!-- Title -->
-    <div class="title">Stress Detection and Prediction System</div>
+    <div class="title">Sign Up - Stress Detection System</div>
 
     <!-- Sidebar Toggle Button -->
     <span class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</span>
@@ -212,14 +200,19 @@
         <a href="signup.html" class="nav-button">Sign Up</a>
     </div>
 
-    <!-- Login Form Container -->
-    <div class="login-container">
-        <form action="/login" method="POST" class="login-form">
-            <h2>Login</h2>
-            
+    <!-- Sign Up Form Container -->
+    <div class="signup-container">
+        <form action="/signup" method="POST" class="signup-form">
+            <h2>Create Your Account</h2>
+
             <div class="input-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="user_id">User ID:</label>
+                <input type="text" id="user_id" name="user_id" required>
             </div>
 
             <div class="input-group">
@@ -227,19 +220,24 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <button type="submit" class="login-button" onclick="loginUser(event)">Login</button>
+            <div class="input-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+
+            <button type="submit" class="signup-button">Sign Up</button>
         </form>
 
-        <!-- Social Media Login Icons -->
+        <!-- Social Media Sign-Up Icons -->
         <div class="social-icons">
-            <a href="#" id="google" onclick="openModal('Google')"><i class="fab fa-google"></i></a>
-            <a href="#" id="facebook" onclick="openModal('Facebook')"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" id="twitter" onclick="openModal('Twitter')"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-google"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
         </div>
     </div>
 
     <script>
-        // Toggle Sidebar
+        // Sidebar Toggle Functionality
         function toggleSidebar() {
             var sidebar = document.getElementById("sidebar");
             if (sidebar.style.width === "250px") {
@@ -247,12 +245,6 @@
             } else {
                 sidebar.style.width = "250px";
             }
-        }
-
-        // Handle Standard Login
-        function loginUser(event) {
-            event.preventDefault();
-            window.location.href = "stress_input.html"; // Redirect to the stress input page after login
         }
     </script>
 </body>
